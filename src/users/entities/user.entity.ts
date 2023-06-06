@@ -18,7 +18,7 @@ export class Users {
     @Column()
     password: String;
 
-    @Column()
+    @Column({ default: 1 })
     id_rol: number;
     
     @Column({ default: true })

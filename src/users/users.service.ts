@@ -19,8 +19,9 @@ export class UsersService {
     return await this.db.query(`select * from users WHERE id = ${id}`);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const {nick_name, email, id_rol} = updateUserDto;
+    return await this.db.query(`UPDATE users SET nick_name = '${nick_name}', email = 'a${email}', id_rol = ${id_rol}  WHERE id = ${id}`);
   }
 
   async activateUser(id: number) {

@@ -71,3 +71,33 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Imagen de la base de dato Postgres con Docker-compose
+
+Ahora te voy a pedir que eches un ojito al archivo a nivel raíz del proyecto con el nombre docker-compose en este archivo tenemos unas líneas de instrucción de ejecución de nuestra db debes tener en cuenta que como esto es una imagen docker esta corriendo en un puerto del contenedor que exponemos para conectarlo con el puerto de nuestra pc yo use el puerto por defecto "5432:5432" tu puedes cambiarlo si lo deseas en este mismo archivo al igual puedes ver las instrucciones de pgadmin que es la herramienta de visualización de bases de datos que use por preferencia en este mismo archivo estan las variables de entorno necesarias para conectarte a tu base de datos y al gestor visual del motor a la misma altura donde se encuentra este archivo puedes ejecutar el comando a través de tu consola 
+```cmd
+docker-compose up
+```
+y podrás ver como comienza este archivo a hacer pull a la imagen de postgres y todo lo necesario para armar el contenedor ideal luego comenzara con el mismo proceso para pgadmin este quedara a la escucha de todo lo que este residiendo postgres con una consola interactiva y ya ves esta consola puedes ver pg admin a través de http://localhost:80 
+
+## Imagen del microservidor 
+
+Abre una terminal en la raíz del proyecto y ejecuta el siguiente comando para construir la imagen de Docker:
+bash
+
+```cmd
+docker build -t mymicroservice .
+```
+
+Esto creará una imagen de Docker llamada mymicroservice basada en las instrucciones del Dockerfile. Asegúrate de incluir el punto . al final del comando para especificar que el Dockerfile se encuentra en el directorio actual.
+
+Una vez que se haya creado la imagen de Docker, puedes ejecutar un contenedor basado en esa imagen con el siguiente comando:
+bash
+
+```cmd
+docker run -p 3000:3000 mymicroservice
+```
+
+Esto ejecutará un contenedor a partir de la imagen mymicroservice y mapeará el puerto 3000 del contenedor al puerto 3000 de tu máquina local. Puedes cambiar el número de puerto si tu microservicio utiliza un puerto diferente.
+
+Con estos pasos, deberías poder empaquetar tu microservicio en un contenedor Docker y ejecutarlo en cualquier entorno compatible con Docker.

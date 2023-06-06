@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, UseGuards, HttpException } from '@nestjs/common';
 import { UsersService } from './users.service';
 // import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -18,8 +18,10 @@ export class UsersController {
   }
   @UseGuards(AuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const response = await this.usersService.findOne(+id);
+    if ( response.length === 0) throw new HttpException('USER_NOT_FOUND', 404)
+    else return response 
   }
   @UseGuards(AuthGuard)
   @Patch(':id')

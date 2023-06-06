@@ -18,8 +18,9 @@ export class AuthService {
   async register(createAuthDto: CreateAuthDto) {
     const {password, nick_name, email, id_rol} = createAuthDto;
     const passwordToHass = await hash(password, 10);
-    const response = await this.userRepository.manager.query(`INSERT INTO users (nick_name, email, password, id_rol) VALUES ('${nick_name}', '${email}','${passwordToHass}','${id_rol}');`)
-    return response
+    const res = await this.db.query(`SELECT * FROM users WHERE email = '${email}'`);
+    if (res.length === 0) return await this.userRepository.manager.query(`INSERT INTO users (nick_name, email, password, id_rol) VALUES ('${nick_name}', '${email}','${passwordToHass}','${id_rol}');`)
+    else throw new HttpException('EMAIL_ALREADY_EXISTS', 403)
   }
   async login(updateAuthDto: UpdateAuthDto) {
     const {email, password} = updateAuthDto;

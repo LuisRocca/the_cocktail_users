@@ -5,15 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
-
+require('dotenv').config();
 @Module({
   imports: [TypeOrmModule.forRoot(
     {
     type: 'postgres',
-    host: 'localhost',
+    host: process.env.HOST,
     port: 5432,
-    username: 'root',
-    password: '123456',
+    username: process.env.USER_NAME,
+    password: process.env.PASWORD_DB,
     database: 'postgres',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
