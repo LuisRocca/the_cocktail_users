@@ -14,7 +14,8 @@ export class RolesController {
   @UseGuards(AuthGuard)
   @Post()
   create(@Body() createRoleDto: CreateRoleDto) {
-    return this.rolesService.create(createRoleDto);
+    this.rolesService.create(createRoleDto);
+    return {response : 'rol successfully create'}
   }
   @UseGuards(AuthGuard)
   @Get()

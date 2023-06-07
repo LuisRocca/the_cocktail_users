@@ -25,17 +25,23 @@ export class UsersController {
   }
   @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    const response = await this.usersService.update(+id, updateUserDto);
+    if (response[1] === 0) throw new HttpException('INCORRECT_PARAMETER', 403)
+    else return { response: 'record successfully deleted'}
   }
   @UseGuards(AuthGuard)
   @Patch('activate/:id')
-  activateUser(@Param('id') id: string) {
-    return this.usersService.activateUser(+id);
+  async activateUser(@Param('id') id: string) {
+    const response = await this.usersService.activateUser(+id);
+    if (response[1] === 0) throw new HttpException('INCORRECT_PARAMETER', 403)
+    else return { response: 'record successfully activate'}
   }
   @UseGuards(AuthGuard)
   @Patch('remove/:id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const response = this.usersService.remove(+id);
+    if (response[1] === 0) throw new HttpException('INCORRECT_PARAMETER', 403)
+    else return { response: 'record successfully deleted'}
   }
 }

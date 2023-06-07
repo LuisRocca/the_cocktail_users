@@ -1,5 +1,5 @@
 # Define la imagen base
-FROM node:14
+FROM node:16
 
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /the_cocktail_db
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Comando para iniciar tu microservicio
-CMD [ "npm", "start" ]
+CMD  npm start 
